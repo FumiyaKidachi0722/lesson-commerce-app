@@ -51,10 +51,6 @@ export default [
           'newlines-between': 'always',
         },
       ],
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
     },
   },
 ];

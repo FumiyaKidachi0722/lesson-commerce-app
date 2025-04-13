@@ -1,15 +1,14 @@
-import React, { JSX } from 'react';
+import React,{ JSX } from 'react';
 
 import { YouTubeEmbed } from '@next/third-parties/google';
-import { SupabaseClient } from '@supabase/supabase-js';
+import {
+  createServerComponentClient,
+  SupabaseClient,
+} from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
 import { Database } from '@/lib/database.types';
 import { extractYouTubeVideoId } from '@/utils/extractYoutubeVideoId';
-import { supabaseServer } from '@/utils/supabaseServer';
-
-interface LessonPageProps {
-  params: Promise<{ id: number }>;
-}
 
 const getDetailLesson = async (
   id: number,
@@ -35,12 +34,12 @@ const getPremiumContent = async (
   return video;
 };
 
-const LessonDetailPage = async ({
-  params,
-}: LessonPageProps): Promise<JSX.Element> => {
-  const { id: lessonId } = await params;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const LessonDetailPage = async (props: any): Promise<JSX.Element> => {
+  const { params } = props as { params: { id: number } };
+  const lessonId = params.id;
 
-  const supabase = await supabaseServer();
+  const supabase = createServerComponentClient<Database>({ cookies });
 
   const [lesson, video] = await Promise.all([
     await getDetailLesson(lessonId, supabase),
