@@ -1,14 +1,12 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import initStripe from 'stripe';
 
-import { Database } from '@/lib/database.types';
+import { supabaseRouteHandlerClient } from '@/utils/supabaseRouteHandlerClient';
 
 // export const config = { api: { bodyParser: false } };
 
 export async function POST(req: NextRequest) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabase = await supabaseRouteHandlerClient();
 
   const stripe = new initStripe(process.env.STRIPE_SECRET_KEY!);
   const signature = req.headers.get('stripe-signature')!;
