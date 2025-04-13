@@ -3,8 +3,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import initStripe from 'stripe';
 
-export async function GET(req: NextRequest) {
-  console.log('req: ', req);
+export async function GET(_req: NextRequest) {
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data, error: userError } = await supabase.auth.getUser();

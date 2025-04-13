@@ -19,7 +19,6 @@ export const SubscriptionButton = ({ planId }: { planId: string }) => {
       }
 
       const data = await response.json();
-      console.log('Checkout session ID: ', data.id);
 
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
 
