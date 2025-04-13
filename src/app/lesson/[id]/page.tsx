@@ -1,3 +1,5 @@
+import React,{ JSX } from 'react';
+
 import { YouTubeEmbed } from '@next/third-parties/google';
 import {
   createServerComponentClient,
@@ -32,12 +34,16 @@ const getPremiumContent = async (
   return video;
 };
 
-const LessonDetailPage = async ({ params }: { params: { id: number } }) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const LessonDetailPage = async (props: any): Promise<JSX.Element> => {
+  const { params } = props as { params: { id: number } };
+  const lessonId = params.id;
+
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const [lesson, video] = await Promise.all([
-    await getDetailLesson(params.id, supabase),
-    await getPremiumContent(params.id, supabase),
+    await getDetailLesson(lessonId, supabase),
+    await getPremiumContent(lessonId, supabase),
   ]);
 
   const videoId = extractYouTubeVideoId(video?.video_url ?? '') ?? '';

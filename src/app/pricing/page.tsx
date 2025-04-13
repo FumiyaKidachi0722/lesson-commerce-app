@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 import {
   createServerComponentClient,
@@ -58,7 +58,11 @@ const getProfileData = async (supabase: SupabaseClient<Database>) => {
   return profile;
 };
 
-const PricingPage = async ({ params }: { params: { id: number } }) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const PricingPage = async (props: any): Promise<JSX.Element> => {
+  const { params } = props as { params: { id: number } };
+  const lessonId = params.id;
+
   const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getSession();
 
@@ -73,7 +77,7 @@ const PricingPage = async ({ params }: { params: { id: number } }) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">
-      <h1 className="text-3xl mb-6">{params?.id}</h1>
+      <h1 className="text-3xl mb-6">{lessonId}</h1>
       {plans.map((plan) => (
         <Card className="shadow-md" key={plan.id}>
           <CardHeader>
