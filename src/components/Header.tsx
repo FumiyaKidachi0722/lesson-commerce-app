@@ -1,13 +1,15 @@
 import React from 'react';
 
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 import { AuthServerButton } from '@/components/auth/AuthServerButton';
 import { Button } from '@/components/ui/button';
-import { supabaseServer } from '@/utils/supabaseServer';
+import { Database } from '@/lib/database.types';
 
 export const Header = async () => {
-  const supabase = await supabaseServer();
+  const supabase = createServerComponentClient<Database>({ cookies });
   const { data: user } = await supabase.auth.getSession();
 
   return (
@@ -19,7 +21,7 @@ export const Header = async () => {
         <Link href={'/dashboard'} className="ml-4">
           <Button variant={'outline'}>ダッシュボード</Button>
         </Link>
-      )}
+      )}{' '}
       <Link href={'/pricing'} className="ml-4">
         <Button variant={'outline'}>価格</Button>
       </Link>

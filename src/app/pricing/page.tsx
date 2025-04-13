@@ -1,6 +1,10 @@
 import React, { JSX } from 'react';
 
-import { SupabaseClient } from '@supabase/supabase-js';
+import {
+  createServerComponentClient,
+  SupabaseClient,
+} from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import initStripe, { Stripe } from 'stripe';
 
@@ -16,7 +20,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Database } from '@/lib/database.types';
-import { supabaseServer } from '@/utils/supabaseServer';
 
 interface Plan {
   id: string;
@@ -60,7 +63,7 @@ const PricingPage = async (props: any): Promise<JSX.Element> => {
   const { params } = props as { params: { id: number } };
   const lessonId = params.id;
 
-  const supabase = await supabaseServer();
+  const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getSession();
 
   const [plans, profile] = await Promise.all([
