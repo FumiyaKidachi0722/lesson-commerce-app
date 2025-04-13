@@ -1,7 +1,7 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import initStripe from 'stripe';
+
+import { supabaseRouteHandlerClient } from '@/utils/supabaseRouteHandlerClient';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export async function GET(
@@ -16,7 +16,7 @@ export async function GET(
     : params.priceId;
 
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await supabaseRouteHandlerClient();
     const { data, error: userError } = await supabase.auth.getUser();
 
     if (userError || !data?.user) {

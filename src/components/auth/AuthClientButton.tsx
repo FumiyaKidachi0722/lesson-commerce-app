@@ -2,10 +2,7 @@
 
 import React from 'react';
 
-import {
-  createClientComponentClient,
-  Session,
-} from '@supabase/auth-helpers-nextjs';
+import { createClient, Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -13,7 +10,10 @@ import { Button } from '@/components/ui/button';
 export const AuthClientButton = ({ session }: { session: Session | null }) => {
   const router = useRouter();
 
-  const supabase = createClientComponentClient();
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
   const handleSignIn = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',

@@ -1,8 +1,4 @@
-import {
-  createServerComponentClient,
-  SupabaseClient,
-} from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { SupabaseClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 
 import {
@@ -13,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Database } from '@/lib/database.types';
+import { supabaseServer } from '@/utils/supabaseServer';
 
 const getAllLessons = async (supabase: SupabaseClient<Database>) => {
   const { data: lessons } = await supabase.from('lesson').select('*');
@@ -21,7 +18,7 @@ const getAllLessons = async (supabase: SupabaseClient<Database>) => {
 
 // 利用例
 export default async function Home() {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await supabaseServer();
   const lessons = await getAllLessons(supabase);
   if (!lessons) {
     return <div>データの取得に失敗しました。</div>;

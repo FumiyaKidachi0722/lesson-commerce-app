@@ -1,13 +1,10 @@
 import React from 'react';
 
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-
 import { ManageSubscriptionButton } from '@/components/checkout/ManageSubscriptionButton';
-import { Database } from '@/lib/database.types';
+import { supabaseServer } from '@/utils/supabaseServer';
 
 const DashBoard = async () => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await supabaseServer();
 
   const getProfileData = async () => {
     const { data: profile } = await supabase
