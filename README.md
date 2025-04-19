@@ -14,3 +14,8 @@ supabase のデータベースから型を生成
 ```bash
 npm run db:types
 ```
+
+### 環境構築
+
+以下、参照
+https://drive.google.com/file/d/1erNWI1sLlZZBQuOXoQEStzoxQHUbWDBX/view?usp=drive_link
