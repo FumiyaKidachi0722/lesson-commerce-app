@@ -1,7 +1,5 @@
 # Lesson Commerce App 🚀
 
-[![Vercel](https://img.shields.io/vercel/deployment/your-username/lesson-commerce-app?style=flat-square)](https://lesson-commerce-app.vercel.app/)  
-
 📦 **Live Demo:** https://lesson-commerce-app.vercel.app/
 
 ---
