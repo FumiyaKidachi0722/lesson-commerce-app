@@ -18,4 +18,4 @@ npm run db:types
 ### 環境構築
 
 以下、参照
-https://drive.google.com/file/d/1erNWI1sLlZZBQuOXoQEStzoxQHUbWDBX/view?usp=drive_link
+https://drive.google.com/drive/folders/1yCpRrop2bR7wcoWDOWJ8Vs7NJhRs9TGL
